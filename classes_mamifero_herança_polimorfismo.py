@@ -17,7 +17,7 @@ class mamifero(object):
 
 #teste
 rex = mamifero('preto','masculino',4)
-rex.amamentar
+rex.amamentar()
 
 #classe para pessoas e polimorfismo
 class pessoa(mamifero):
@@ -30,3 +30,4 @@ class pessoa(mamifero):
 
 #teste para pessoas
 julia = pessoa('preta','feminino', 2 , 'loiro')
+print(julia.cabelo)
