@@ -1,0 +1,86 @@
+'''Criado por : Pedro Lucas de Souza Rodrigues 
+e Iago de Souza Nogueira Penido'''
+
+from sys import stdin
+
+
+suffix = (('o', 'ei', 'ai'),
+                       ('os', 'es', 'ais'),
+                       ('a', 'e', 'i'),
+                       ('om', 'em', 'aem'),
+                       ('ons', 'est', 'aist'),
+                       ('am', 'im', 'aim'))
+
+
+def discover_suffi(palavra):
+    word_limite = 4
+    final_suffix = ''
+    verb_tense = 1
+    infinitive = ''
+    while(word_limite):
+        sulffix_da_entrada = palavra[-word_limite:]
+        for tupla in suffix:
+            for sulffix in tupla:
+                if sulffix == sulffix_da_entrada:
+                    if len(sulffix) > len(final_suffix):
+                        final_suffix = sulffix
+                        infinitive = palavra[:-word_limite]+'en'
+                else:
+                    pass
+
+        word_limite -= 1
+    if final_suffix == '':
+        return "não é um tempo verbal"
+
+    return final_suffix, infinitive
+
+
+def person(word_suffix):
+    person = 1
+    for tupla in suffix:
+        if word_suffix in tupla:
+            break
+        else:
+            person += 1
+
+    return(str(person))
+
+
+def tempo(sulffix, person):
+    n_person = int(person)
+    tupla = suffix[n_person-1]
+    final_time = ''
+    if tupla[0] == sulffix:
+        final_time = 'presente'
+
+    elif tupla[1] == sulffix:
+        final_time = 'pretérito'
+
+    else:
+        final_time = 'futuro'
+
+    return final_time
+
+
+def main():
+    line = stdin.readline().strip()
+    while True:
+
+        if line == '':
+            break
+
+        if discover_suffi(line) == "não é um tempo verbal":
+            print("não é um tempo verbal")
+
+        else:
+            sulffix, infinitive = discover_suffi(line)
+            n_person = person(sulffix)
+            n_tempo = tempo(sulffix, n_person)
+            print("{} - verbo {}, {}, {}a person".format(line,
+                  infinitive, n_tempo, n_person))
+
+        line = stdin.readline().strip()
+
+
+if __name__ == '__main__':
+    main()
