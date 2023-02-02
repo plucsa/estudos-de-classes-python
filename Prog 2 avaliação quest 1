@@ -1,0 +1,73 @@
+'''Criado por : Pedro Lucas de Souza Rodrigues 
+e Iago de Souza Nogueira Penido'''
+
+from sys import stdin
+#O módulo sys fornece funções e variáveis ​​usadas para manipular diferentes partes do ambiente de tempo de execução do Python
+
+def M_alternates(lista):
+    first_index = 0
+    second_index = 1
+    contador = 2
+    lista_nova = list()
+    while(second_index <= len(lista)):
+        lista_nova.append(lista[first_index:second_index])
+        first_index = second_index
+        second_index += contador
+        contador += 1
+    return lista_nova
+
+#verificador numerico
+def verificador_num(num):
+    acumulador = 0
+    contador = 1
+    while(acumulador <= num):
+        acumulador += contador
+        contador += 1
+        if(acumulador == num):
+            return True
+    return False
+
+
+def main():
+    num = None
+    while(num != ''):
+        num = stdin.readline().strip()
+        lista = stdin.readline().strip().split()
+        hashtag = stdin.readline().strip()
+        if num == '':
+            break
+
+        if(verificador_num(int(num))):
+            lista = M_alternates(list(map(lambda e: int(e), lista)))
+            resto = zero_e_um(lista[0][0])
+            answer = None
+            for e in lista:
+                for i in e:
+                    if(i % 2 == resto):
+                        pass
+                    else:
+                        answer = 'NAO'
+                if resto == 1:
+                    resto = 0
+                else:
+                    resto = 1
+            if answer:
+                print(answer)
+            else:
+                print(len(lista[-1]))
+
+        else:
+            print('NAO')
+        print(hashtag)
+
+
+def zero_e_um(first_element):
+    if(first_element % 2 == 0):
+        resto = 0
+    else:
+        resto = 1
+    return resto
+
+
+if __name__ == '__main__':
+    main()
